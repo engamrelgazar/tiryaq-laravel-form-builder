@@ -207,7 +207,7 @@ class Form
         return static::class === $this->formBuilder->getFormClass();
     }
 
-    public function buildForm()
+    public function buildForm(): void
     {
     }
 

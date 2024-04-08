@@ -49,8 +49,6 @@ class FormBuilderServiceProvider extends ServiceProvider
         $this->app->alias('form', LaravelForm::class);
 
         $this->registerBladeDirectives();
-        $this->registerFormHelper();
-        $this->registerFormBuilder();
     }
 
     protected function registerBladeDirectives(): void
@@ -229,14 +227,17 @@ class FormBuilderServiceProvider extends ServiceProvider
             __DIR__ . '/../config/config.php' => config_path('laravel-form-builder.php'),
         ]);
 
-        $form = $this->app[static::FORM_ABSTRACT];
+        $this->registerFormHelper();
+        $this->registerFormBuilder();
 
-        $form->macro('customLabel', function ($name, $value, $options = [], $escapeHtml = true) use ($form) {
-            if (isset($options['for']) && $for = $options['for']) {
-                unset($options['for']);
+        $this->app->afterResolving('form', function (LaravelForm $form) {
+            $form->macro('customLabel', function ($name, $value, $options = [], $escapeHtml = true) use ($form) {
+                if (isset($options['for']) && $for = $options['for']) {
+                    unset($options['for']);
 
-                return $form->label($for, $value, $options, $escapeHtml);
-            }
+                    return $form->label($for, $value, $options, $escapeHtml);
+                }
+            });
         });
     }
 

@@ -14,7 +14,7 @@ if(! function_exists('getFormBuilderViewPath')) {
 
         $path = base_path('resources/views/vendor/laravel-form-builder/' . $fileName);
 
-        return file_exists($path) ? $path : __DIR__ . '/views/' . $fileName;
+        return file_exists($path) ? $path : __DIR__ . '/../resources/views/' . $fileName;
     }
 }
 
