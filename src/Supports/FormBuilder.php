@@ -326,6 +326,10 @@ class FormBuilder
 
     protected function getModelValueAttribute($name): mixed
     {
+        if (! isset($this->model)) {
+            return null;
+        }
+
         $key = $this->transformKey($name);
 
         if ((is_string($this->model) || is_object($this->model)) && method_exists($this->model, 'getFormValue')) {
