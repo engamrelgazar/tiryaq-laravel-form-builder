@@ -567,7 +567,7 @@ class Form
         return $this;
     }
 
-    public function addCustomField($name, $class): static
+    public function addCustomField(string $name, string $class): static
     {
         if ($this->rebuilding && $this->formHelper->hasCustomField($name)) {
             return $this;
