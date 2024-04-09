@@ -3,6 +3,7 @@
 namespace Kris\LaravelFormBuilder;
 
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
@@ -80,7 +81,7 @@ class Form
         return $this;
     }
 
-    public function add(string $name, string $type = 'text', array $options = [], bool $modify = false): static
+    public function add(string $name, string $type = 'text', array|Arrayable $options = [], bool $modify = false): static
     {
         $this->formHelper->checkFieldName($name, get_class($this));
 
