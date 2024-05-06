@@ -220,6 +220,14 @@ class FormBuilder
         // when creating the HTML element. Then, we will return the entire input.
         $merge = compact('type', 'value', 'id');
 
+        if ($id === null || $id === '') {
+            unset($merge['id']);
+        }
+
+        if ($value === null || $value === '') {
+            unset($merge['value']);
+        }
+
         $options = array_merge($options, $merge);
 
         return $this->toHtmlString('<input' . $this->html->attributes($options) . '>');
@@ -231,7 +239,7 @@ class FormBuilder
             return $attributes['id'];
         }
 
-        if (in_array($name, $this->labels)) {
+        if (empty($this->labels)) {
             return $name;
         }
 
