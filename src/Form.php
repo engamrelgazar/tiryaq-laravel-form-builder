@@ -2,7 +2,6 @@
 
 namespace Kris\LaravelFormBuilder;
 
-use Botble\Base\Contracts\BaseModel;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
