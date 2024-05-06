@@ -2,6 +2,7 @@
 
 namespace Kris\LaravelFormBuilder;
 
+use Botble\Base\Contracts\BaseModel;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactory;
@@ -121,8 +122,12 @@ class Form
         }
     }
 
-    protected function makeField(string $name, string $type = 'text', array $options = []): FormField
+    protected function makeField(string $name, string $type = 'text', array|Arrayable $options = []): FormField
     {
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
         $this->setupFieldOptions($name, $options);
 
         $fieldName = $this->getFieldName($name);
@@ -136,7 +141,7 @@ class Form
         return $field;
     }
 
-    protected function setupFieldOptions(string $name, array &$options): void
+    protected function setupFieldOptions(string $name, array|Arrayable &$options): void
     {
         $options['real_name'] = $name;
     }
@@ -212,8 +217,12 @@ class Form
     {
     }
 
-    public function addAfter(string $name, string $fieldName, string $type = 'text', array $options = [], bool $modify = false): static
+    public function addAfter(string $name, string $fieldName, string $type = 'text', array|Arrayable $options = [], bool $modify = false): static
     {
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
         $offset = array_search($name, array_keys($this->fields));
 
         $beforeFields = array_slice($this->fields, 0, $offset + 1);
@@ -228,8 +237,12 @@ class Form
         return $this;
     }
 
-    public function compose($class, array $options = [], bool $modify = false): static
+    public function compose($class, array|Arrayable $options = [], bool $modify = false): static
     {
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
         $options['class'] = $class;
 
         // If we pass a ready-made form just extract the fields.
@@ -273,8 +286,12 @@ class Form
         return $this;
     }
 
-    public function modify(string $name, string $type = 'text', array $options = [], bool $overwriteOptions = false): static
+    public function modify(string $name, string $type = 'text', array|Arrayable $options = [], bool $overwriteOptions = false): static
     {
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
         // If we don't want to overwrite options, we merge them with old options.
         if ($overwriteOptions === false && $this->has($name)) {
             $options = $this->formHelper->mergeOptions(

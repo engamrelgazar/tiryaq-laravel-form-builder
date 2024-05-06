@@ -2,6 +2,7 @@
 
 namespace Kris\LaravelFormBuilder\Fields;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Kris\LaravelFormBuilder\Filters\Exception\FilterAlreadyBindedException;
@@ -114,7 +115,7 @@ abstract class FormField
      * @param Form $parent
      * @param array $options
      */
-    public function __construct($name, $type, Form $parent, array $options = [])
+    public function __construct($name, $type, Form $parent, array|Arrayable $options = [])
     {
         $this->name = $name;
         $this->type = $type;
@@ -158,7 +159,7 @@ abstract class FormField
      *
      * @param array $options
      */
-    protected function setDefaultOptions(array $options = [])
+    protected function setDefaultOptions(array|Arrayable $options = [])
     {
         $this->options = $this->formHelper->mergeOptions($this->allDefaults(), $this->getDefaults());
         $this->options = $this->prepareOptions($options);
@@ -212,7 +213,7 @@ abstract class FormField
      * @param array $options
      * @return array The parsed options
      */
-    protected function prepareOptions(array $options = [])
+    protected function prepareOptions(array|Arrayable $options = [])
     {
         $helper = $this->formHelper;
 
@@ -435,7 +436,7 @@ abstract class FormField
      * @param array $options
      * @return array
      */
-    protected function setDefaultClasses(array $options = [])
+    protected function setDefaultClasses(array|Arrayable $options = [])
     {
         $wrapper_class = $this->getConfig('defaults.' . $this->type . '.wrapper_class', '');
         $label_class = $this->getConfig('defaults.' . $this->type . '.label_class', '');
