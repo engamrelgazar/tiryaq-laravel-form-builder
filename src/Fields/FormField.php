@@ -122,6 +122,11 @@ abstract class FormField
         $this->parent = $parent;
         $this->formHelper = $this->parent->getFormHelper();
         $this->setTemplate();
+
+        if ($options instanceof Arrayable) {
+            $options = $options->toArray();
+        }
+
         $this->setDefaultOptions($options);
         $this->setupValue();
         $this->initFilters();
@@ -159,7 +164,7 @@ abstract class FormField
      *
      * @param array $options
      */
-    protected function setDefaultOptions(array|Arrayable $options = [])
+    protected function setDefaultOptions(array $options = [])
     {
         $this->options = $this->formHelper->mergeOptions($this->allDefaults(), $this->getDefaults());
         $this->options = $this->prepareOptions($options);
@@ -213,7 +218,7 @@ abstract class FormField
      * @param array $options
      * @return array The parsed options
      */
-    protected function prepareOptions(array|Arrayable $options = [])
+    protected function prepareOptions(array $options = [])
     {
         $helper = $this->formHelper;
 
@@ -436,7 +441,7 @@ abstract class FormField
      * @param array $options
      * @return array
      */
-    protected function setDefaultClasses(array|Arrayable $options = [])
+    protected function setDefaultClasses(array $options = [])
     {
         $wrapper_class = $this->getConfig('defaults.' . $this->type . '.wrapper_class', '');
         $label_class = $this->getConfig('defaults.' . $this->type . '.label_class', '');
