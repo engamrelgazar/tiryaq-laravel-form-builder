@@ -239,7 +239,7 @@ class FormBuilder
             return $attributes['id'];
         }
 
-        if (empty($this->labels)) {
+        if (in_array($name, $this->labels)) {
             return $name;
         }
 
