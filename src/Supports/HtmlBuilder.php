@@ -6,6 +6,7 @@ use BadMethodCallException;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Kris\LaravelFormBuilder\Traits\Componentable;
 
@@ -100,11 +101,14 @@ class HtmlBuilder
     {
         $attributes['alt'] = $alt;
 
+        $src = $this->url->asset($url, $secure);
+
+        if (Str::startsWith($url, ['data:image/png;base64,', 'data:image/jpeg;base64,'])) {
+            $src = $url;
+        }
+
         return $this->toHtmlString(
-            '<img src="' . $this->url->asset(
-                $url,
-                $secure
-            ) . '"' . $this->attributes($attributes) . '>'
+            '<img src="' . $src . '"' . $this->attributes($attributes) . '>'
         );
     }
 
