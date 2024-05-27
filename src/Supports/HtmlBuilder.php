@@ -184,9 +184,11 @@ class HtmlBuilder
         return $this->link($this->url->action($action, $parameters), $title, $attributes, $secure, $escape);
     }
 
-    public function mailto($email, $title = null, $attributes = [], $escape = true): HtmlString
+    public function mailto($email, $title = null, $attributes = [], $escape = true, bool $obfuscate = true): HtmlString
     {
-        $email = $this->email($email);
+        if ($obfuscate) {
+            $email = $this->email($email);
+        }
 
         $title = $title ?: $email;
 
