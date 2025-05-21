@@ -21,7 +21,7 @@ class HtmlBuilder
 
     protected Factory $view;
 
-    public function __construct(UrlGenerator $url = null, Factory $view)
+    public function __construct(?UrlGenerator $url = null, Factory $view)
     {
         $this->url = $url;
         $this->view = $view;
