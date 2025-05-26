@@ -17,11 +17,11 @@ class HtmlBuilder
         Componentable::__call as componentCall;
     }
 
-    protected ?UrlGenerator $url;
+    protected UrlGenerator $url;
 
     protected Factory $view;
 
-    public function __construct(?UrlGenerator $url = null, Factory $view)
+    public function __construct(UrlGenerator $url, Factory $view)
     {
         $this->url = $url;
         $this->view = $view;
